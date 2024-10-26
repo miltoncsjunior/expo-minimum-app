@@ -26,16 +26,10 @@ export default function ExploreScreen() {
 					<Text>Learn more</Text>
 				</ExternalLink>
 			</Collapsible>
-			<Collapsible title="Android, iOS, and web support">
-				<Text>
-					You can open this project on Android, iOS, and the web. To open the web version, press <Text>w</Text> in the
-					terminal running this project.
-				</Text>
-			</Collapsible>
 			<Collapsible title="Images">
 				<Text>
-					For static images, you can use the <Text>@2x</Text> and <Text>@3x</Text> suffixes to provide files for
-					different screen densities
+					For static images, you can use the <Text>@2x</Text> and <Text>@3x</Text> suffixes to provide files
+					for different screen densities
 				</Text>
 				<Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
 				<ExternalLink href="https://reactnative.dev/docs/images">
@@ -53,8 +47,8 @@ export default function ExploreScreen() {
 			</Collapsible>
 			<Collapsible title="Light and dark mode components">
 				<Text>
-					This template has light and dark mode support. The <Text>useColorScheme()</Text> hook lets you inspect what
-					the user's current color scheme is, and so you can adjust UI colors accordingly.
+					This template has light and dark mode support. The <Text>useColorScheme()</Text> hook lets you
+					inspect what the user's current color scheme is, and so you can adjust UI colors accordingly.
 				</Text>
 				<ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
 					<Text>Learn more</Text>
@@ -62,14 +56,15 @@ export default function ExploreScreen() {
 			</Collapsible>
 			<Collapsible title="Animations">
 				<Text>
-					This template includes an example of an animated component. The <Text>components/HelloWave.tsx</Text>{' '}
-					component uses the powerful <Text>react-native-reanimated</Text> library to create a waving hand animation.
+					This template includes an example of an animated component. The{' '}
+					<Text>components/HelloWave.tsx</Text> component uses the powerful{' '}
+					<Text>react-native-reanimated</Text> library to create a waving hand animation.
 				</Text>
 				{Platform.select({
 					ios: (
 						<Text>
-							The <Text>components/ParallaxScrollView.tsx</Text> component provides a parallax effect for the header
-							image.
+							The <Text>components/ParallaxScrollView.tsx</Text> component provides a parallax effect for
+							the header image.
 						</Text>
 					),
 				})}

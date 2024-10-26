@@ -15,9 +15,6 @@
 		"ios": {
 			"buildNumber": "1",
 			"supportsTablet": true,
-			"infoPlist": {
-				"NSCameraUsageDescription": "Utilizamos a câmera para capturar imagens."
-			},
 			"bundleIdentifier": "expo.minimum.app"
 		},
 		"android": {
@@ -26,13 +23,7 @@
 				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"permissions": ["android.permission.CAMERA"],
 			"package": "expo.minimum.app"
-		},
-		"web": {
-			"bundler": "metro",
-			"output": "static",
-			"favicon": "./assets/images/favicon.png"
 		},
 		"plugins": [
 			[
@@ -55,9 +46,9 @@
 			["expo-font"],
 			["expo-router"],
 			[
-				"react-native-vision-camera",
+				"expo-camera",
 				{
-					"cameraPermissionText": "Utilizamos a câmera para capturar imagens."
+					"cameraPermission": "Utilizamos a câmera para capturar imagens."
 				}
 			]
 		],

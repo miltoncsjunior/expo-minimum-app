@@ -1,11 +1,11 @@
 # generated
-node_modules
-/.expo
-node_modules
-/ios
-/android
+.expo
+node_modules/**
+ios/**
+android/**
+assets/**
 
 # IDE
-/.vscode
-/.idea
-/.run
+.vscode
+.idea
+.run

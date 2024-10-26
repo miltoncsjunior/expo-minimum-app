@@ -50,3 +50,6 @@ To learn more about developing your project with Expo, look at the following res
 
 - [Axios](https://medium.com/@highlanderfullstack/chamadas-de-api-de-front-end-com-typescript-e-axios-fdc37501347f): Learn how to use axios.
 - [Authentication](https://dev.to/proesc/fluxo-de-autenticacao-no-react-native-usando-expo-router-61h): Learn how to authenticate users.
+- [Theme Gluestack v1](https://v1.gluestack.io/ui/docs/home/overview/introduction): Learn how to use Gluestack.
+- [Icons](https://ionic.io/ionicons): Learn how to use
+- [Camera](https://docs.expo.dev/versions/latest/sdk/camera/): Learn how to use the camera.

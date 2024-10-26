@@ -14,8 +14,7 @@ export default function HomeScreen() {
 	const [isError, setIsError] = useState<boolean>(false);
 
 	useEffect(() => {
-		api
-			.getPosts()
+		api.getPosts()
 			.then(data => {
 				setPosts(data);
 			})

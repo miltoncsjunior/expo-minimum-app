@@ -37,7 +37,11 @@ export default function ParallaxScrollView({ children, headerImage, headerBackgr
 		<Box style={styles.container}>
 			<Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
 				<Animated.View
-					style={[styles.header, { backgroundColor: headerBackgroundColor[colorScheme] }, headerAnimatedStyle]}>
+					style={[
+						styles.header,
+						{ backgroundColor: headerBackgroundColor[colorScheme] },
+						headerAnimatedStyle,
+					]}>
 					{headerImage}
 				</Animated.View>
 				<Box style={styles.content}>{children}</Box>

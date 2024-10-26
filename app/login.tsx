@@ -36,11 +36,11 @@ export default function LoginScreen() {
 	return (
 		<Box style={styles.container}>
 			<Center>
-				<Text style={styles.title}>Welcome! 🌈 </Text>
+				<Text style={styles.title}>Olá! 🌈 </Text>
 				<Text style={styles.paragraph}>
-					This is a simple repo that emulates a login authentication workflow using Expo Router, focused on the
-					navigation aspect.
+					Emulador do fluxo de autenticação usando o Expo Router, focado no aspecto de navegação.
 				</Text>
+
 				<Divider />
 
 				<FormControl
@@ -53,11 +53,11 @@ export default function LoginScreen() {
 					$dark-borderColor="$borderDark800">
 					<VStack space="xl">
 						<Heading color="$text900" lineHeight="$md">
-							Login
+							Autenticação
 						</Heading>
 						<VStack space="xs">
 							<Text color="$text500" lineHeight="$xs">
-								Username(not required)
+								Usuário(não requerido)
 							</Text>
 							<Input>
 								<InputField type="text" />
@@ -65,18 +65,17 @@ export default function LoginScreen() {
 						</VStack>
 						<VStack space="xs">
 							<Text color="$text500" lineHeight="$xs">
-								Password(not required)
+								Senha(não requerido)
 							</Text>
 							<Input>
 								<InputField type={showPassword ? 'text' : 'password'} />
 								<InputSlot pr="$3" onPress={handleState}>
-									{/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
 									<InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color="$darkBlue500" />
 								</InputSlot>
 							</Input>
 						</VStack>
 						<Button ml="auto" onPress={handleLogin}>
-							<ButtonText color="$white">Login</ButtonText>
+							<ButtonText color="$white">Acessar</ButtonText>
 						</Button>
 					</VStack>
 				</FormControl>
