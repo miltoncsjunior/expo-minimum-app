@@ -8,6 +8,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
    ```bash
    npm install
+   npx expo prebuild --clean
    ```
 
 2. Start the app
@@ -15,6 +16,8 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
     npx expo start
    ```
+   - Press "a" to open in android, or "shift + a" to select emulator to open
+   - Press "i" to open in iOS, or "shift + i" to select simulator to open
 
 3. Build the app
 
