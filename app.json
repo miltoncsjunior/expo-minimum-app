@@ -23,9 +23,20 @@
 				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "expo.minimum.app"
+			"package": "expo.minimum.app",
+			"hardwareAccelerated": true,
+			"largeHeap": true
 		},
 		"plugins": [
+			[
+				"./plugins/android-manifest-attributes",
+				{
+					"application": {
+						"android:hardwareAccelerated": "true",
+						"android:largeHeap": "true"
+					}
+				}
+			],
 			[
 				"expo-build-properties",
 				{
@@ -43,14 +54,14 @@
 					}
 				}
 			],
-			["expo-font"],
-			["expo-router"],
 			[
 				"expo-camera",
 				{
 					"cameraPermission": "Utilizamos a câmera para capturar imagens."
 				}
-			]
+			],
+			["expo-font"],
+			["expo-router"]
 		],
 		"experiments": {
 			"typedRoutes": true

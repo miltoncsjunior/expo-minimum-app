@@ -6,9 +6,10 @@ import 'react-native-reanimated';
 
 import { SessionProvider } from '@/components/authentication/AuthContext';
 import { config } from '@gluestack-ui/config';
-import { Box, Button, ButtonText, GluestackUIProvider, Text } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, GluestackUIProvider, StatusBar, Text } from '@gluestack-ui/themed';
 import { useCameraPermissions } from 'expo-camera';
 import { Slot } from 'expo-router';
+import { setStatusBarStyle } from 'expo-status-bar';
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -29,6 +30,12 @@ export default function RootLayout() {
 	});
 
 	useEffect(() => {
+		setTimeout(() => {
+			setStatusBarStyle('auto');
+		}, 0);
+	}, []);
+
+	useEffect(() => {
 		if (loaded) {
 			SplashScreen.hideAsync();
 		}
@@ -38,24 +45,23 @@ export default function RootLayout() {
 		return null;
 	}
 
-	if (!permission?.granted) {
-		return (
-			<Box style={styles.container}>
-				<Text>Precisamos que sejam dadas permissões para acessar sua câmera!</Text>
-				<Button onPress={requestPermission}>
-					<ButtonText>CONCEDER</ButtonText>
-				</Button>
-			</Box>
-		);
-	} else {
-		return (
-			<SessionProvider>
-				<GluestackUIProvider config={config}>
+	return (
+		<SessionProvider>
+			<GluestackUIProvider config={config}>
+				<StatusBar />
+				{!permission?.granted ? (
+					<Box style={styles.container}>
+						<Text>Precisamos que sejam dadas permissões para acessar sua câmera!</Text>
+						<Button onPress={requestPermission}>
+							<ButtonText>CONCEDER</ButtonText>
+						</Button>
+					</Box>
+				) : (
 					<Slot />
-				</GluestackUIProvider>
-			</SessionProvider>
-		);
-	}
+				)}
+			</GluestackUIProvider>
+		</SessionProvider>
+	);
 }
 
 const styles = StyleSheet.create({
