@@ -40,6 +40,15 @@ export default function TabLayout() {
 					),
 				}}
 			/>
+			<Tabs.Screen
+				name="realm"
+				options={{
+					title: 'Realm DB',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'server' : 'server-outline'} color={color} />
+					),
+				}}
+			/>
 		</Tabs>
 	);
 }
