@@ -41,9 +41,9 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="realm"
+				name="local-db"
 				options={{
-					title: 'Realm DB',
+					title: 'Banco de dados local',
 					tabBarIcon: ({ color, focused }) => (
 						<TabBarIcon name={focused ? 'server' : 'server-outline'} color={color} />
 					),

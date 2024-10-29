@@ -6,6 +6,7 @@ import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 import { Box, Text } from '@gluestack-ui/themed';
+
 export default function ExploreScreen() {
 	return (
 		<ParallaxScrollView

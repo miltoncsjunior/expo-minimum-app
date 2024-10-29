@@ -46,5 +46,4 @@ To learn more about developing your project with Expo, look at the following res
 - [Theme Gluestack v1](https://v1.gluestack.io/ui/docs/home/overview/introduction): Learn how to use Gluestack.
 - [Icons](https://ionic.io/ionicons): Learn how to use
 - [Camera](https://docs.expo.dev/versions/latest/sdk/camera/): Learn how to use the camera.
-
-- [Example Realm](https://github.com/expo/examples/tree/master/with-realm)
+- [Expo SQLite ORM](https://www.npmjs.com/package/expo-sqlite-orm): Learn how to use SQLite ORM.
