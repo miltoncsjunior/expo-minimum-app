@@ -4,7 +4,7 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 import { useApi } from '@/hooks/useApi';
-import { PostType } from '@/models/post.interface';
+import { PostType } from '@/models/interface';
 import { Box, Card, Heading, Text, VStack } from '@gluestack-ui/themed';
 import { useEffect, useState } from 'react';
 

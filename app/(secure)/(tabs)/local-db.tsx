@@ -1,39 +1,10 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { Animal, columMapping, statements } from '@/schemas/animal';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Box, Button, ButtonText, Divider, Text } from '@gluestack-ui/themed';
-import { ColumnMapping, columnTypes, IStatement, Migrations, Repository, sql } from 'expo-sqlite-orm';
+import { Migrations, Repository } from 'expo-sqlite-orm';
 import React, { useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
-
-interface Animal {
-	id: number;
-	name: string;
-	color: string;
-	age: number;
-	another_uid?: number;
-	timestamp?: number;
-}
-
-const columMapping: ColumnMapping<Animal> = {
-	id: { type: columnTypes.INTEGER },
-	name: { type: columnTypes.TEXT },
-	color: { type: columnTypes.TEXT },
-	age: { type: columnTypes.NUMERIC },
-	another_uid: { type: columnTypes.INTEGER },
-	timestamp: { type: columnTypes.INTEGER, default: () => Date.now() },
-};
-
-const statements: IStatement = {
-	'1662689376195_create_animals': sql`
-        CREATE TABLE animals (
-          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL,
-          color TEXT,
-          age NUMERIC,
-          another_uid TEXT UNIQUE,
-          timestamp INTEGER
-        );`,
-};
 
 const databaseName = 'dbName';
 
