@@ -1,3 +1,4 @@
+import { useLog } from '@/hooks/useLog';
 import { useStorageState } from '@/hooks/useStorageState';
 import { createContext, PropsWithChildren, useContext } from 'react';
 
@@ -34,10 +35,13 @@ export function SessionProvider(props: PropsWithChildren) {
 					// Add your login logic here
 					// For example purposes, we'll just set a fake session in storage
 					//This likely would be a JWT token or other session data
+					useLog.info('Sign in...');
 					setSession('John Doe');
+					useLog.info('Signed in as John Doe...');
 				},
 				signOut: () => {
 					setSession(null);
+					useLog.info('Signed out...');
 				},
 				session,
 				isLoading,

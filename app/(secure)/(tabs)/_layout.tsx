@@ -49,6 +49,15 @@ export default function TabLayout() {
 					),
 				}}
 			/>
+			<Tabs.Screen
+				name="log-viewer"
+				options={{
+					title: 'Logs',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
+					),
+				}}
+			/>
 		</Tabs>
 	);
 }
