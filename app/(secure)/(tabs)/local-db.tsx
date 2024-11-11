@@ -1,4 +1,5 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { useLog } from '@/hooks/useLog';
 import { Animal, columMapping, statements } from '@/schemas/animal';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Box, Button, ButtonText, Divider, Text } from '@gluestack-ui/themed';
@@ -7,6 +8,20 @@ import React, { useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 const databaseName = 'dbName';
+
+function stringGenerator(length: number): string {
+	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	const charactersLength = characters.length;
+	let counter = 0;
+	let result = '';
+
+	while (counter < length) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		counter += 1;
+	}
+
+	return result;
+}
 
 export default function LocalDatabaseScreen() {
 	const [animals, setAnimals] = useState<Animal[]>([]);
@@ -17,33 +32,37 @@ export default function LocalDatabaseScreen() {
 	}, []);
 
 	const onPressRunMigrations = async () => {
-		console.log('migrations', migrations);
+		useLog.info('migrations: ' + JSON.stringify(migrations));
 		await migrations.migrate();
 	};
 
 	const onPressReset = async () => {
-		console.log('reset database');
+		useLog.info('reset database');
 		await migrations.reset();
 		setAnimals([]);
 	};
 
 	const onPressInsert = () => {
 		animalRepository
-			.insert({ name: 'Bob', color: 'Brown', age: 2 })
-			.then(createdAnimal => {
-				console.log(createdAnimal);
+			.insert({
+				name: stringGenerator(5),
+				color: stringGenerator(10),
+				age: Math.floor(Math.random() * (1 - 30) + 1) * -1,
 			})
-			.catch(e => console.log(e));
+			.then(createdAnimal => {
+				useLog.info('createdAnimal: ' + JSON.stringify(createdAnimal));
+			})
+			.catch(e => useLog.error(e));
 	};
 
 	const onPressQuery = () => {
 		animalRepository
 			.query({ where: { age: { gte: 1 } } })
 			.then(foundAnimals => {
-				console.log(foundAnimals);
+				useLog.info('foundAnimals: ' + JSON.stringify(foundAnimals));
 				setAnimals(foundAnimals);
 			})
-			.catch(e => console.log(e));
+			.catch(e => useLog.error(e));
 	};
 
 	return (

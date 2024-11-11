@@ -5,8 +5,6 @@ export interface Animal {
 	name: string;
 	color: string;
 	age: number;
-	another_uid?: number;
-	timestamp?: number;
 }
 
 export const columMapping: ColumnMapping<Animal> = {
@@ -14,18 +12,14 @@ export const columMapping: ColumnMapping<Animal> = {
 	name: { type: columnTypes.TEXT },
 	color: { type: columnTypes.TEXT },
 	age: { type: columnTypes.NUMERIC },
-	another_uid: { type: columnTypes.INTEGER },
-	timestamp: { type: columnTypes.INTEGER, default: () => Date.now() },
 };
 
 export const statements: IStatement = {
-	'1662689376195_create_animals': sql`
+	'1_create_animals': sql`
         CREATE TABLE animals (
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           color TEXT,
-          age NUMERIC,
-          another_uid TEXT UNIQUE,
-          timestamp INTEGER
+          age NUMERIC
         );`,
 };
