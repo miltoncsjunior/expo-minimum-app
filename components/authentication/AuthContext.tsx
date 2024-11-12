@@ -1,6 +1,7 @@
 import { useLog } from '@/hooks/useLog';
 import { useStorageState } from '@/hooks/useStorageState';
 import { createContext, PropsWithChildren, useContext } from 'react';
+import DeviceInfo from 'react-native-device-info';
 
 const AuthContext = createContext<{
 	signIn: () => void;
@@ -38,6 +39,12 @@ export function SessionProvider(props: PropsWithChildren) {
 					useLog.info('Sign in...');
 					setSession('John Doe');
 					useLog.info('Signed in as John Doe...');
+					useLog.info('Device id: ' + DeviceInfo.getDeviceId() + ' ...');
+					useLog.info('Device manufacturer: ' + DeviceInfo.getBrand() + ' ...');
+					useLog.info('Device model: ' + DeviceInfo.getModel() + ' ...');
+					useLog.info('Device type: ' + DeviceInfo.getDeviceType() + ' ...');
+					useLog.info('Device operating system: ' + DeviceInfo.getSystemName() + ' ...');
+					useLog.info('Device operating system version: ' + DeviceInfo.getSystemVersion() + ' ...');
 				},
 				signOut: () => {
 					setSession(null);
