@@ -1,102 +1,109 @@
 import { useSession } from '@/components/authentication/AuthContext';
-import {
-	Box,
-	Button,
-	ButtonText,
-	Center,
-	Divider,
-	EyeIcon,
-	EyeOffIcon,
-	FormControl,
-	Heading,
-	Input,
-	InputField,
-	InputIcon,
-	InputSlot,
-	Text,
-	VStack,
-} from '@gluestack-ui/themed';
+import { useLog } from '@/hooks/useLog';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Button, HelperText, Text, TextInput } from 'react-native-paper';
+import { emailValidator, passwordValidator } from '../core/utils';
 
 export default function LoginScreen() {
 	const { signIn } = useSession();
+
+	const [email, setEmail] = useState({ value: '', error: '' });
+	const [password, setPassword] = useState({ value: '', error: '' });
+
 	const handleLogin = () => {
+		const emailError = emailValidator(email.value);
+		const passwordError = passwordValidator(password.value);
+
+		if (emailError || passwordError) {
+			setEmail({ ...email, error: emailError });
+			setPassword({ ...password, error: passwordError });
+			return;
+		}
+
 		signIn();
 		router.replace('/');
 	};
-	const [showPassword, setShowPassword] = useState(false);
-	const handleState = () => {
-		setShowPassword(showState => {
-			return !showState;
-		});
-	};
+
+	useLog.info('Application started...');
 
 	return (
-		<Box style={styles.container}>
-			<Center>
-				<Text style={styles.title}>Olá! 🌈 </Text>
-				<Text style={styles.paragraph}>
-					Emulador do fluxo de autenticação usando o Expo Router, focado no aspecto de navegação.
-				</Text>
+		<View style={styles.container}>
+			<Image source={require('@/assets/images/react-logo.png')} style={styles.image} />
 
-				<Divider />
+			<View>
+				<TextInput
+					label="Email"
+					returnKeyType="next"
+					value={email.value}
+					onChangeText={text => setEmail({ value: text, error: '' })}
+					error={!!email.error}
+					autoCapitalize="none"
+					autoComplete="email"
+					textContentType="emailAddress"
+					keyboardType="email-address"
+				/>
+				<HelperText type="error" visible={email.error.length > 0}>
+					{email.error}
+				</HelperText>
+			</View>
 
-				<FormControl
-					p="$4"
-					borderWidth="$1"
-					borderRadius="$lg"
-					borderColor="$borderLight300"
-					$dark-borderWidth="$1"
-					$dark-borderRadius="$lg"
-					$dark-borderColor="$borderDark800">
-					<VStack space="xl">
-						<Heading color="$text900" lineHeight="$md">
-							Autenticação
-						</Heading>
-						<VStack space="xs">
-							<Text color="$text500" lineHeight="$xs">
-								Usuário(não requerido)
-							</Text>
-							<Input>
-								<InputField type="text" />
-							</Input>
-						</VStack>
-						<VStack space="xs">
-							<Text color="$text500" lineHeight="$xs">
-								Senha(não requerido)
-							</Text>
-							<Input>
-								<InputField type={showPassword ? 'text' : 'password'} />
-								<InputSlot pr="$3" onPress={handleState}>
-									<InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color="$darkBlue500" />
-								</InputSlot>
-							</Input>
-						</VStack>
-						<Button ml="auto" onPress={handleLogin}>
-							<ButtonText color="$white">Acessar</ButtonText>
-						</Button>
-					</VStack>
-				</FormControl>
-			</Center>
-		</Box>
+			<View>
+				<TextInput
+					label="Password"
+					returnKeyType="done"
+					value={password.value}
+					onChangeText={text => setPassword({ value: text, error: '' })}
+					error={!!password.error}
+					secureTextEntry
+				/>
+
+				<HelperText type="error" visible={password.error.length > 0}>
+					{password.error}
+				</HelperText>
+			</View>
+
+			<View style={styles.forgotPassword}>
+				<TouchableOpacity>
+					<Text>Forgot your password?</Text>
+				</TouchableOpacity>
+			</View>
+
+			<Button mode="contained" onPress={handleLogin}>
+				Login
+			</Button>
+
+			<View style={styles.row}>
+				<Text>Don’t have an account? </Text>
+				<TouchableOpacity>
+					<Text style={styles.link}>Sign up</Text>
+				</TouchableOpacity>
+			</View>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
+		paddingHorizontal: 20,
 	},
-	title: {
-		fontSize: 20,
+	forgotPassword: {
+		width: '100%',
+		alignItems: 'flex-end',
+		marginBottom: 24,
+	},
+	row: {
+		flexDirection: 'row',
+		marginTop: 24,
+	},
+	link: {
 		fontWeight: 'bold',
 	},
-	paragraph: {
-		margin: 24,
-		fontSize: 18,
-		textAlign: 'center',
+	image: {
+		width: 128,
+		height: 128,
+		marginBottom: 20,
+		alignSelf: 'center',
 	},
 });

@@ -11,7 +11,7 @@ const log = logger.createLogger({
 	//severity: __DEV__ ? 'debug' : 'error',
 	async: true,
 	asyncFunc: InteractionManager.runAfterInteractions,
-	transport: [consoleTransport, fileAsyncTransport],
+	transport: [fileAsyncTransport, consoleTransport],
 	levels: {
 		debug: 0,
 		info: 1,

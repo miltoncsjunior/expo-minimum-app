@@ -5,6 +5,7 @@ export interface Animal {
 	name: string;
 	color: string;
 	age: number;
+	timestamp?: number;
 }
 
 export const columMapping: ColumnMapping<Animal> = {
@@ -12,6 +13,7 @@ export const columMapping: ColumnMapping<Animal> = {
 	name: { type: columnTypes.TEXT },
 	color: { type: columnTypes.TEXT },
 	age: { type: columnTypes.NUMERIC },
+	timestamp: { type: columnTypes.NUMERIC, default: () => Date.now() },
 };
 
 export const statements: IStatement = {
@@ -20,6 +22,7 @@ export const statements: IStatement = {
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           color TEXT,
-          age NUMERIC
+          age NUMERIC,
+          timestamp NUMERIC
         );`,
 };
