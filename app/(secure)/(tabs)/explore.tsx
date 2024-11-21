@@ -1,13 +1,30 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Image, Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
+import { useLog } from '@/hooks/useLog';
 import { Box, Text } from '@gluestack-ui/themed';
+import { Image, useImage } from 'expo-image';
+import { useEffect } from 'react';
 
 export default function ExploreScreen() {
+	const image = useImage(require('@/assets/images/react-logo.png'), {
+		onError(error, retry) {
+			useLog.error('Loading failed:' + error.message);
+		},
+	});
+
+	useEffect(() => {
+		useLog.info('Explore screen started...');
+	}, []);
+
+	if (!image) {
+		return <Text>Image is loading...</Text>;
+	}
+
 	return (
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -32,7 +49,7 @@ export default function ExploreScreen() {
 					For static images, you can use the <Text>@2x</Text> and <Text>@3x</Text> suffixes to provide files
 					for different screen densities
 				</Text>
-				<Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
+				<Image source={image} style={{ alignSelf: 'center' }} />
 				<ExternalLink href="https://reactnative.dev/docs/images">
 					<Text>Learn more</Text>
 				</ExternalLink>

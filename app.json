@@ -39,15 +39,11 @@
 				"expo-build-properties",
 				{
 					"android": {
-						"compileSdkVersion": 34,
-						"targetSdkVersion": 34,
-						"buildToolsVersion": "34.0.0",
 						"usesCleartextTraffic": true,
 						"enableProguardInReleaseBuilds": true,
 						"enableShrinkResourcesInReleaseBuilds": true
 					},
 					"ios": {
-						"deploymentTarget": "13.4",
 						"ccacheEnabled": true
 					}
 				}
@@ -55,7 +51,9 @@
 			[
 				"expo-camera",
 				{
-					"cameraPermission": "Utilizamos a câmera para capturar imagens."
+					"cameraPermission": "Utilizamos a câmera para capturar imagens.",
+          "microphonePermission": "Utilizamos o microfone para captura audios durante os vídeos.",
+          "recordAudioAndroid": true
 				}
 			],
 			["expo-font"],

@@ -1,8 +1,10 @@
 import { useSession } from '@/components/authentication/AuthContext';
+import FormLayout from '@/components/FormLayout';
 import { useLog } from '@/hooks/useLog';
+import { Image, useImage } from 'expo-image';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, HelperText, Text, TextInput } from 'react-native-paper';
 import { emailValidator, passwordValidator } from '../core/utils';
 
@@ -12,7 +14,7 @@ export default function LoginScreen() {
 	const [email, setEmail] = useState({ value: '', error: '' });
 	const [password, setPassword] = useState({ value: '', error: '' });
 
-	const handleLogin = () => {
+	const handleLogin = useCallback(() => {
 		const emailError = emailValidator(email.value);
 		const passwordError = passwordValidator(password.value);
 
@@ -24,16 +26,29 @@ export default function LoginScreen() {
 
 		signIn();
 		router.replace('/');
-	};
+	}, [signIn, email, password]);
 
-	useLog.info('Application started...');
+	const image = useImage(require('@/assets/images/react-logo.png'), {
+		onError(error, retry) {
+			useLog.error('Loading failed:' + error.message);
+		},
+	});
+
+	useEffect(() => {
+		useLog.info('Login screen started...');
+	}, []);
+
+	if (!image) {
+		return <Text>Image is loading...</Text>;
+	}
 
 	return (
-		<View style={styles.container}>
-			<Image source={require('@/assets/images/react-logo.png')} style={styles.image} />
+		<FormLayout>
+			<Image source={image} style={styles.image} />
 
 			<View>
 				<TextInput
+					mode="outlined"
 					label="Email"
 					returnKeyType="next"
 					value={email.value}
@@ -44,6 +59,7 @@ export default function LoginScreen() {
 					textContentType="emailAddress"
 					keyboardType="email-address"
 				/>
+
 				<HelperText type="error" visible={email.error.length > 0}>
 					{email.error}
 				</HelperText>
@@ -51,6 +67,7 @@ export default function LoginScreen() {
 
 			<View>
 				<TextInput
+					mode="outlined"
 					label="Password"
 					returnKeyType="done"
 					value={password.value}
@@ -80,14 +97,11 @@ export default function LoginScreen() {
 					<Text style={styles.link}>Sign up</Text>
 				</TouchableOpacity>
 			</View>
-		</View>
+		</FormLayout>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		paddingHorizontal: 20,
-	},
 	forgotPassword: {
 		width: '100%',
 		alignItems: 'flex-end',

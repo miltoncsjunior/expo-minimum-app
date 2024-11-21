@@ -4,7 +4,7 @@ import { Animal, columMapping, statements } from '@/schemas/animal';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Box, Button, ButtonText, Divider, Text } from '@gluestack-ui/themed';
 import { Migrations, Repository } from 'expo-sqlite-orm';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 const databaseName = 'dbName';
@@ -64,6 +64,10 @@ export default function LocalDatabaseScreen() {
 			})
 			.catch(e => useLog.error(e));
 	};
+
+	useEffect(() => {
+		useLog.info('Local database screen started...');
+	}, []);
 
 	return (
 		<ParallaxScrollView

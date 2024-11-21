@@ -31,6 +31,7 @@ In the output, you'll find options to open the app in a
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Build your app locally](https://docs.expo.dev/guides/local-app-production/)
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
@@ -43,7 +44,8 @@ To learn more about developing your project with Expo, look at the following res
 
 - [Axios](https://medium.com/@highlanderfullstack/chamadas-de-api-de-front-end-com-typescript-e-axios-fdc37501347f): Learn how to use axios.
 - [Authentication](https://dev.to/proesc/fluxo-de-autenticacao-no-react-native-usando-expo-router-61h): Learn how to authenticate users.
-- [Theme Gluestack v1](https://v1.gluestack.io/ui/docs/home/overview/introduction): Learn how to use Gluestack.
+- [Theme React Native Paper](https://callstack.github.io/react-native-paper/): Learn how to use React Native Paper.
 - [Icons](https://ionic.io/ionicons): Learn how to use
 - [Camera](https://docs.expo.dev/versions/latest/sdk/camera/): Learn how to use the camera.
 - [Expo SQLite ORM](https://www.npmjs.com/package/expo-sqlite-orm): Learn how to use SQLite ORM.
+- [Logging](https://www.npmjs.com/package/react-native-logs): Learn how to use the log system in file and console.

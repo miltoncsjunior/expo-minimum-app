@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Appbar, Text } from 'react-native-paper';
 import { SessionProvider, useSession } from './AuthContext';
 
@@ -6,7 +6,7 @@ export function AuthAppBar() {
 	const { session, signOut, isLoading } = useSession();
 	const [signedIn, setSignedIn] = useState(false);
 
-	useEffect(() => {
+	useMemo(() => {
 		setSignedIn(session !== null && session !== undefined);
 	}, [session]);
 

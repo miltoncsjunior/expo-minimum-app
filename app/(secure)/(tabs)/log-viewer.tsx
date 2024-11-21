@@ -32,7 +32,7 @@ export default function LogViewerScreen() {
 				.catch(error => {
 					useLog.error(error);
 				});
-	}, []);
+	}, [rootDirectory]);
 
 	useEffect(() => {
 		if (file) {
@@ -44,7 +44,11 @@ export default function LogViewerScreen() {
 					useLog.error(error);
 				});
 		}
-	}, [file]);
+	}, [file, rootDirectory]);
+
+	useEffect(() => {
+		useLog.info('Log viewer screen started...');
+	}, []);
 
 	return (
 		<ParallaxScrollView

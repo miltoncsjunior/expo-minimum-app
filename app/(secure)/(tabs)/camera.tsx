@@ -1,10 +1,11 @@
+import { useLog } from '@/hooks/useLog';
 import { AntDesign, Feather, FontAwesome6 } from '@expo/vector-icons';
 import { Box, Button, ButtonText, Image, Pressable } from '@gluestack-ui/themed';
 import { CameraMode, CameraType, CameraView } from 'expo-camera';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-export default function ExploreScreen() {
+export default function CameraScreen() {
 	const ref = useRef<CameraView>(null);
 	const [uri, setUri] = useState<string | undefined>(undefined);
 	const [mode, setMode] = useState<CameraMode>('picture');
@@ -12,7 +13,12 @@ export default function ExploreScreen() {
 	const [recording, setRecording] = useState(false);
 
 	const takePicture = async () => {
-		const photo = await ref.current?.takePictureAsync();
+		const photo = await ref.current?.takePictureAsync({
+			quality: 1,
+			base64: true,
+			skipProcessing: true,
+			exif: true,
+		});
 		setUri(photo?.uri);
 	};
 
@@ -24,6 +30,7 @@ export default function ExploreScreen() {
 		}
 		setRecording(true);
 		const video = await ref.current?.recordAsync();
+		setUri(video?.uri);
 	};
 
 	const toggleMode = () => {
@@ -73,9 +80,11 @@ export default function ExploreScreen() {
 								]}>
 								<Box
 									style={[
-										styles.shutterBtnInner,
 										{
 											backgroundColor: mode === 'picture' ? 'white' : 'red',
+											width: mode === 'video' && recording ? 30 : 70,
+											height: mode === 'video' && recording ? 30 : 70,
+											borderRadius: mode === 'video' && recording ? 2 : 50,
 										},
 									]}
 								/>
@@ -89,6 +98,10 @@ export default function ExploreScreen() {
 			</CameraView>
 		);
 	};
+
+	useEffect(() => {
+		useLog.info('Camera screen started...');
+	}, []);
 
 	return <Box style={styles.container}>{uri ? renderPicture() : renderCamera()}</Box>;
 }

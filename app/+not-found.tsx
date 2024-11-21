@@ -1,8 +1,15 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
+import { useLog } from '@/hooks/useLog';
 import { Box, Text } from '@gluestack-ui/themed';
+import { useEffect } from 'react';
+
 export default function NotFoundScreen() {
+	useEffect(() => {
+		useLog.info('Not found screen started...');
+	}, []);
+
 	return (
 		<>
 			<Stack.Screen options={{ title: 'Oops!' }} />
