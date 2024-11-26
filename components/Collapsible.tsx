@@ -1,15 +1,16 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
-import { Box, Text } from '@gluestack-ui/themed';
+import { Text } from 'react-native-paper';
+
 export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const theme = useColorScheme() ?? 'light';
 
 	return (
-		<Box>
+		<View>
 			<TouchableOpacity style={styles.heading} onPress={() => setIsOpen(value => !value)} activeOpacity={0.8}>
 				<Ionicons
 					name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
@@ -18,8 +19,8 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
 				/>
 				<Text>{title}</Text>
 			</TouchableOpacity>
-			{isOpen && <Box style={styles.content}>{children}</Box>}
-		</Box>
+			{isOpen && <View style={styles.content}>{children}</View>}
+		</View>
 	);
 }
 

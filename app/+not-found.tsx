@@ -1,8 +1,8 @@
 import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 
 import { useLog } from '@/hooks/useLog';
-import { Box, Text } from '@gluestack-ui/themed';
 import { useEffect } from 'react';
 
 export default function NotFoundScreen() {
@@ -13,12 +13,12 @@ export default function NotFoundScreen() {
 	return (
 		<>
 			<Stack.Screen options={{ title: 'Oops!' }} />
-			<Box style={styles.container}>
+			<View style={styles.container}>
 				<Text>This screen doesn't exist.</Text>
 				<Link href="/" style={styles.link}>
 					<Text>Go to home screen!</Text>
 				</Link>
-			</Box>
+			</View>
 		</>
 	);
 }

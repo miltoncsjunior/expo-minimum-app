@@ -1,10 +1,10 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useLog } from '@/hooks/useLog';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Box, Divider, ScrollView, Text } from '@gluestack-ui/themed';
 import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Divider, Text } from 'react-native-paper';
 
 export default function LogViewerScreen() {
 	const [files, setFiles] = useState<string[]>([]);
@@ -54,13 +54,13 @@ export default function LogViewerScreen() {
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
 			headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-			<Box style={styles.titleContainer}>
+			<View style={styles.titleContainer}>
 				<Text>Local files logs</Text>
-			</Box>
+			</View>
 
 			<Divider />
 
-			<Box>
+			<View>
 				<ScrollView
 					ref={fileViewRef}
 					// onContentSizeChange={() =>
@@ -90,7 +90,7 @@ export default function LogViewerScreen() {
 				>
 					{logs ? <Text>{logs}</Text> : <Text>SELECT LOG FILE...</Text>}
 				</ScrollView>
-			</Box>
+			</View>
 		</ParallaxScrollView>
 	);
 }

@@ -1,14 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 import { useLog } from '@/hooks/useLog';
-import { Box, Text } from '@gluestack-ui/themed';
 import { Image, useImage } from 'expo-image';
 import { useEffect } from 'react';
+import { Text } from 'react-native-paper';
 
 export default function ExploreScreen() {
 	const image = useImage(require('@/assets/images/react-logo.png'), {
@@ -29,9 +29,9 @@ export default function ExploreScreen() {
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
 			headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-			<Box style={styles.titleContainer}>
+			<View style={styles.titleContainer}>
 				<Text>Explore</Text>
-			</Box>
+			</View>
 			<Text>This app includes example code to help you get started.</Text>
 			<Collapsible title="File-based routing">
 				<Text>

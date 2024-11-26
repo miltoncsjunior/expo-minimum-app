@@ -2,10 +2,10 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useLog } from '@/hooks/useLog';
 import { Animal, columMapping, statements } from '@/schemas/animal';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Box, Button, ButtonText, Divider, Text } from '@gluestack-ui/themed';
 import { Migrations, Repository } from 'expo-sqlite-orm';
 import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Button, Divider, Text } from 'react-native-paper';
 
 const databaseName = 'dbName';
 
@@ -73,24 +73,16 @@ export default function LocalDatabaseScreen() {
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
 			headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-			<Box style={styles.titleContainer}>
+			<View style={styles.titleContainer}>
 				<Text>Local Database using Expo SQLite ORM</Text>
-			</Box>
+			</View>
 
 			<Divider />
 
-			<Button onPress={onPressRunMigrations}>
-				<ButtonText>Run Migrations</ButtonText>
-			</Button>
-			<Button onPress={onPressReset}>
-				<ButtonText>Reset database</ButtonText>
-			</Button>
-			<Button onPress={onPressInsert}>
-				<ButtonText>Insert animal</ButtonText>
-			</Button>
-			<Button onPress={onPressQuery}>
-				<ButtonText>List animals</ButtonText>
-			</Button>
+			<Button onPress={onPressRunMigrations}>Run Migrations</Button>
+			<Button onPress={onPressReset}>Reset database</Button>
+			<Button onPress={onPressInsert}>Insert animal</Button>
+			<Button onPress={onPressQuery}>List animals</Button>
 			<Text>{JSON.stringify(animals, null, 1)}</Text>
 		</ParallaxScrollView>
 	);

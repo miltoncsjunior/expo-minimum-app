@@ -1,5 +1,5 @@
-import { Text } from '@gluestack-ui/themed';
 import { StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
@@ -7,6 +7,7 @@ import Animated, {
 	withSequence,
 	withTiming,
 } from 'react-native-reanimated';
+
 export function HelloWave() {
 	const rotationAnimation = useSharedValue(0);
 
