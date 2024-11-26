@@ -7,9 +7,10 @@ import 'react-native-reanimated';
 import { AuthAppBar } from '@/components/authentication/AuthAppBar';
 import { SessionProvider } from '@/components/authentication/AuthContext';
 import { Colors } from '@/constants/Colors';
-import { useCameraPermissions, useMicrophonePermissions } from 'expo-camera';
+import { useLog } from '@/hooks/useLog';
 import { Slot } from 'expo-router';
 import { MD3DarkTheme, MD3LightTheme, MD3Theme, PaperProvider } from 'react-native-paper';
+
 export {
 	// Catch any errors thrown by the Layout component.
 	ErrorBoundary,
@@ -49,29 +50,19 @@ const appTheme = {
 };
 
 export default function RootLayout() {
-	const [permissionCamera, requestCameraPermission] = useCameraPermissions();
-	const [permissionMicrophone, requestMicrophonePermission] = useMicrophonePermissions();
-	const [loaded] = useFonts({
+	const [loadedFonts] = useFonts({
 		SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
 	});
 
-	const permissions = {
-		camera: permissionCamera?.granted,
-		microphone: permissionMicrophone?.granted,
-	};
-
 	useEffect(() => {
-		if (loaded) {
+		if (loadedFonts) {
 			SplashScreen.hideAsync();
+
+			useLog.info('App started...');
 		}
-	}, [loaded]);
+	}, [loadedFonts]);
 
-	useEffect(() => {
-		!permissions.camera && requestCameraPermission();
-		!permissions.microphone && requestMicrophonePermission();
-	}, [permissions.camera, permissions.microphone, requestCameraPermission, requestMicrophonePermission]);
-
-	if (!loaded) {
+	if (!loadedFonts) {
 		return null;
 	}
 
@@ -80,15 +71,6 @@ export default function RootLayout() {
 			<PaperProvider theme={appTheme as MD3Theme}>
 				<AuthAppBar />
 				<View style={styles.container}>
-					{/* {!permissionCamera?.granted || !permissionMichrophone?.granted ? (
-						<View
-							style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
-							<Text>Precisamos que sejam dadas permissões para acessar sua câmera!</Text>
-							<Button onPress={requestPermission}>CONCEDER</Button>
-						</View>
-					) : (
-						<Slot />
-					)} */}
 					<Slot />
 				</View>
 			</PaperProvider>

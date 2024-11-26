@@ -1,18 +1,40 @@
 import { useLog } from '@/hooks/useLog';
 import { AntDesign, Feather, FontAwesome6 } from '@expo/vector-icons';
 import { Box, Button, ButtonText, Image, Pressable } from '@gluestack-ui/themed';
-import { CameraMode, CameraType, CameraView } from 'expo-camera';
+import { CameraMode, CameraType, CameraView, useCameraPermissions, useMicrophonePermissions } from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 export default function CameraScreen() {
+	const [permissionCamera, requestCameraPermission] = useCameraPermissions();
+	const [permissionMicrophone, requestMicrophonePermission] = useMicrophonePermissions();
+
 	const ref = useRef<CameraView>(null);
 	const [uri, setUri] = useState<string | undefined>(undefined);
 	const [mode, setMode] = useState<CameraMode>('picture');
 	const [facing, setFacing] = useState<CameraType>('back');
 	const [recording, setRecording] = useState(false);
 
+	const permissions = {
+		camera: permissionCamera?.granted,
+		microphone: permissionMicrophone?.granted,
+	};
+
+	useEffect(() => {
+		if (!permissions.camera || !permissions.microphone) {
+			useLog.info('Permissions requested...');
+		}
+
+		!permissions.camera && requestCameraPermission();
+		!permissions.microphone && requestMicrophonePermission();
+	}, [permissions.camera, permissions.microphone, requestCameraPermission, requestMicrophonePermission]);
+
 	const takePicture = async () => {
+		if (!permissions.camera) {
+			useLog.info('Permissions denied...');
+			return;
+		}
+
 		const photo = await ref.current?.takePictureAsync({
 			quality: 1,
 			base64: true,
@@ -23,6 +45,11 @@ export default function CameraScreen() {
 	};
 
 	const recordVideo = async () => {
+		if (!permissions.camera || !permissions.microphone) {
+			useLog.info('Permissions denied...');
+			return;
+		}
+
 		if (recording) {
 			setRecording(false);
 			ref.current?.stopRecording();
