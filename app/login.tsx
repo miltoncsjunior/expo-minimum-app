@@ -1,10 +1,9 @@
 import { useSession } from '@/components/authentication/AuthContext';
 import FormLayout from '@/components/FormLayout';
 import { useLog } from '@/hooks/useLog';
-import { Image, useImage } from 'expo-image';
 import { router } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, HelperText, Text, TextInput } from 'react-native-paper';
 import { emailValidator, passwordValidator } from '../core/utils';
 
@@ -28,23 +27,13 @@ export default function LoginScreen() {
 		router.replace('/');
 	}, [signIn, email, password]);
 
-	const image = useImage(require('@/assets/images/react-logo.png'), {
-		onError(error, retry) {
-			useLog.error('Loading failed:' + error.message);
-		},
-	});
-
 	useEffect(() => {
 		useLog.info('Login screen started...');
 	}, []);
 
-	if (!image) {
-		return <Text>Image is loading...</Text>;
-	}
-
 	return (
 		<FormLayout>
-			<Image source={image} style={styles.image} />
+			<Image source={require('@/assets/images/react-logo.png')} style={styles.image} />
 
 			<View>
 				<TextInput

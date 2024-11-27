@@ -1,72 +1,77 @@
 {
-	"expo": {
-		"name": "Expo Minimum App",
-		"slug": "expo-minimum-app",
-		"version": "1.1.1",
+  "expo": {
+    "name": "Expo Minimum App",
+    "slug": "expo-minimum-app",
+    "version": "1.2.0",
     "newArchEnabled": true,
-		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
-		"scheme": "myapp",
-		"userInterfaceStyle": "automatic",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"ios": {
-			"buildNumber": "1",
-			"supportsTablet": true,
-			"bundleIdentifier": "expo.minimum.app"
-		},
-		"android": {
-			"versionCode": 1,
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			},
-			"package": "expo.minimum.app"
-		},
-		"plugins": [
-			[
-				"./plugins/android-manifest-attributes",
-				{
-					"application": {
-						"android:hardwareAccelerated": "true",
-						"android:largeHeap": "true"
-					}
-				}
-			],
-			[
-				"expo-build-properties",
-				{
-					"android": {
-						"usesCleartextTraffic": true,
-						"enableProguardInReleaseBuilds": true,
-						"enableShrinkResourcesInReleaseBuilds": true
-					},
-					"ios": {
-						"ccacheEnabled": true
-					}
-				}
-			],
-			[
-				"expo-camera",
-				{
-					"cameraPermission": "Utilizamos a câmera para capturar imagens.",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "bundleIdentifier": "expo.minimum.app"
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "expo.minimum.app"
+    },
+    "plugins": [
+      [
+        "./plugins/android-manifest-attributes",
+        {
+          "application": {
+            "android:hardwareAccelerated": "true",
+            "android:largeHeap": "true"
+          }
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true,
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
+          },
+          "ios": {
+            "ccacheEnabled": true
+          }
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Utilizamos a câmera para capturar imagens.",
           "microphonePermission": "Utilizamos o microfone para captura audios durante os vídeos.",
           "recordAudioAndroid": true
-				}
-			],
-			["expo-font"],
-			["expo-router"]
-		],
-		"experiments": {
-			"typedRoutes": true
-		},
-		"extra": {
-			"router": {
-				"origin": false
-			}
-		}
-	}
+        }
+      ],
+      [
+        "expo-font"
+      ],
+      [
+        "expo-router"
+      ],
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    }
+  }
 }

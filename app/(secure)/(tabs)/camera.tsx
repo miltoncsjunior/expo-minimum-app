@@ -71,7 +71,7 @@ export default function CameraScreen() {
 	const renderPicture = () => {
 		return (
 			<View>
-				<Image source={{ uri }} alt="Imagem capturada" />
+				<Image source={{ uri }} alt="Imagem capturada" style={styles.image} />
 				<Button mode="contained" onPress={() => setUri(undefined)}>
 					Nova captura
 				</Button>
@@ -168,5 +168,11 @@ const styles = StyleSheet.create({
 		width: 70,
 		height: 70,
 		borderRadius: 50,
+	},
+	image: {
+		width: 256,
+		height: 256,
+		marginBottom: 10,
+		alignSelf: 'center',
 	},
 });

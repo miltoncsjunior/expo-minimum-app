@@ -23,12 +23,6 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-// Set the animation options. This is optional.
-SplashScreen.setOptions({
-	duration: 1000,
-	fade: true,
-});
-
 const colorScheme = Appearance.getColorScheme();
 
 const dynamicTheme =
