@@ -1,8 +1,6 @@
 import { Redirect, Stack } from 'expo-router';
 
 import { useSession } from '@/components/authentication/AuthContext';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 
 export default function SecureLayout() {
 	const { session } = useSession();
@@ -14,10 +12,8 @@ export default function SecureLayout() {
 	}
 
 	return (
-		<GluestackUIProvider config={config}>
-			<Stack>
-				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			</Stack>
-		</GluestackUIProvider>
+		<Stack>
+			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+		</Stack>
 	);
 }

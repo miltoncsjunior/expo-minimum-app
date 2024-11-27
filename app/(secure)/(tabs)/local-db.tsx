@@ -79,10 +79,18 @@ export default function LocalDatabaseScreen() {
 
 			<Divider />
 
-			<Button onPress={onPressRunMigrations}>Run Migrations</Button>
-			<Button onPress={onPressReset}>Reset database</Button>
-			<Button onPress={onPressInsert}>Insert animal</Button>
-			<Button onPress={onPressQuery}>List animals</Button>
+			<Button mode="contained" onPress={onPressRunMigrations}>
+				Run Migrations
+			</Button>
+			<Button mode="contained" onPress={onPressReset}>
+				Reset database
+			</Button>
+			<Button mode="contained" onPress={onPressInsert}>
+				Insert animal
+			</Button>
+			<Button mode="contained" onPress={onPressQuery}>
+				List animals
+			</Button>
 			<Text>{JSON.stringify(animals, null, 1)}</Text>
 		</ParallaxScrollView>
 	);

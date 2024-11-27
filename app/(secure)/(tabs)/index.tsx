@@ -1,12 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { Card, Text } from 'react-native-paper';
 
 import { useApi } from '@/hooks/useApi';
 import { useLog } from '@/hooks/useLog';
 import { PostType } from '@/models/interface';
-import { Box, Card, Heading, Text, VStack } from '@gluestack-ui/themed';
 import { Image, useImage } from 'expo-image';
 import { useEffect, useState } from 'react';
 
@@ -44,11 +44,11 @@ export default function HomeScreen() {
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
 			headerImage={<Image source={image} style={styles.reactLogo} />}>
-			<Box style={styles.titleContainer}>
+			<View style={styles.titleContainer}>
 				<Text>Dados da API!</Text>
 				<HelloWave />
-			</Box>
-			<Box style={styles.stepContainer}>
+			</View>
+			<View style={styles.stepContainer}>
 				<Text>Usando axios</Text>
 				{/* {isError ? (
 					<Text>Erro ao carregar os dados</Text>
@@ -65,14 +65,14 @@ export default function HomeScreen() {
 				) : (
 					posts.map(post => (
 						<Card key={post.id}>
-							<VStack>
-								<Heading size="md">{post.title}</Heading>
-								<Text size="sm">{post.body}</Text>
-							</VStack>
+							<Card.Title title={post.title} />
+							<Card.Content>
+								<Text variant="bodyMedium">{post.body}</Text>
+							</Card.Content>
 						</Card>
 					))
 				)}
-			</Box>
+			</View>
 		</ParallaxScrollView>
 	);
 }

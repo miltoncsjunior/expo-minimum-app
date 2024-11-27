@@ -1,9 +1,9 @@
 import { useLog } from '@/hooks/useLog';
 import { AntDesign, Feather, FontAwesome6 } from '@expo/vector-icons';
-import { Box, Button, ButtonText, Image, Pressable } from '@gluestack-ui/themed';
 import { CameraMode, CameraType, CameraView, useCameraPermissions, useMicrophonePermissions } from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export default function CameraScreen() {
 	const [permissionCamera, requestCameraPermission] = useCameraPermissions();
@@ -70,12 +70,12 @@ export default function CameraScreen() {
 
 	const renderPicture = () => {
 		return (
-			<Box>
-				<Image source={{ uri }} size="2xl" alt="Imagem capturada" />
-				<Button onPress={() => setUri(undefined)}>
-					<ButtonText>Nova captura</ButtonText>
+			<View>
+				<Image source={{ uri }} alt="Imagem capturada" />
+				<Button mode="contained" onPress={() => setUri(undefined)}>
+					Nova captura
 				</Button>
-			</Box>
+			</View>
 		);
 	};
 
@@ -88,7 +88,7 @@ export default function CameraScreen() {
 				facing={facing}
 				mute={false}
 				responsiveOrientationWhenOrientationLocked>
-				<Box style={styles.shutterContainer}>
+				<View style={styles.shutterContainer}>
 					<Pressable onPress={toggleMode}>
 						{mode === 'picture' ? (
 							<AntDesign name="picture" size={32} color="white" />
@@ -98,14 +98,14 @@ export default function CameraScreen() {
 					</Pressable>
 					<Pressable onPress={mode === 'picture' ? takePicture : recordVideo}>
 						{({ pressed }) => (
-							<Box
+							<View
 								style={[
 									styles.shutterBtn,
 									{
 										opacity: pressed ? 0.5 : 1,
 									},
 								]}>
-								<Box
+								<View
 									style={[
 										{
 											backgroundColor: mode === 'picture' ? 'white' : 'red',
@@ -115,13 +115,13 @@ export default function CameraScreen() {
 										},
 									]}
 								/>
-							</Box>
+							</View>
 						)}
 					</Pressable>
 					<Pressable onPress={toggleFacing}>
 						<FontAwesome6 name="rotate-left" size={32} color="white" />
 					</Pressable>
-				</Box>
+				</View>
 			</CameraView>
 		);
 	};
@@ -130,7 +130,7 @@ export default function CameraScreen() {
 		useLog.info('Camera screen started...');
 	}, []);
 
-	return <Box style={styles.container}>{uri ? renderPicture() : renderCamera()}</Box>;
+	return <View style={styles.container}>{uri ? renderPicture() : renderCamera()}</View>;
 }
 
 const styles = StyleSheet.create({
