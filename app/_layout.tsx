@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { Appearance, StyleSheet, View } from 'react-native';
+import { Appearance, View } from 'react-native';
 import 'react-native-reanimated';
 
 import { AuthAppBar } from '@/components/authentication/AuthAppBar';
@@ -10,6 +10,7 @@ import { Colors } from '@/constants/Colors';
 import { useLog } from '@/hooks/useLog';
 import { Slot } from 'expo-router';
 import { MD3DarkTheme, MD3LightTheme, MD3Theme, PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -44,6 +45,18 @@ const appTheme = {
 };
 
 export default function RootLayout() {
+	const insets = useSafeAreaInsets();
+	const dynamicStyle = {
+		container: {
+			paddingTop: -insets.top,
+			paddingBottom: insets.bottom,
+			paddingLeft: insets.left,
+			paddingRight: insets.right,
+			flex: 1,
+			backgroundColor: appTheme.colors.background,
+		},
+	};
+
 	const [loadedFonts] = useFonts({
 		SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
 	});
@@ -64,17 +77,12 @@ export default function RootLayout() {
 		<SessionProvider>
 			<PaperProvider theme={appTheme as MD3Theme}>
 				<AuthAppBar />
-				<View style={styles.container}>
-					<Slot />
-				</View>
+				<SafeAreaProvider>
+					<View style={dynamicStyle.container}>
+						<Slot />
+					</View>
+				</SafeAreaProvider>
 			</PaperProvider>
 		</SessionProvider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: appTheme.colors.background,
-	},
-});
