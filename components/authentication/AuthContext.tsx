@@ -7,12 +7,10 @@ const AuthContext = createContext<{
 	signIn: () => void;
 	signOut: () => void;
 	session?: string | null;
-	isLoading: boolean;
 }>({
 	signIn: () => null,
 	signOut: () => null,
 	session: null,
-	isLoading: false,
 });
 
 // This hook can be used to access the user info.
@@ -30,7 +28,7 @@ export function useSession() {
 }
 
 export function SessionProvider(props: PropsWithChildren) {
-	const [[isLoading, session], setSession] = useStorageState('session');
+	const [[session], setSession] = useStorageState('session');
 	return (
 		<AuthContext.Provider
 			value={{
@@ -53,7 +51,6 @@ export function SessionProvider(props: PropsWithChildren) {
 					useLog.info('Signed out...');
 				},
 				session,
-				isLoading,
 			}}>
 			{props.children}
 		</AuthContext.Provider>

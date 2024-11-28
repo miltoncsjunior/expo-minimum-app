@@ -1,19 +1,14 @@
 import { useMemo, useState } from 'react';
-import { Appbar, Text } from 'react-native-paper';
+import { Appbar } from 'react-native-paper';
 import { SessionProvider, useSession } from './AuthContext';
 
 export function AuthAppBar() {
-	const { session, signOut, isLoading } = useSession();
+	const { session, signOut } = useSession();
 	const [signedIn, setSignedIn] = useState(false);
 
 	useMemo(() => {
 		setSignedIn(session !== null && session !== undefined);
 	}, [session]);
-
-	// You can keep the splash screen open, or render a loading screen like we do here.
-	if (isLoading) {
-		return <Text>Loading...</Text>;
-	}
 
 	return (
 		<SessionProvider>

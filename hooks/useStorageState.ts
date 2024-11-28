@@ -1,11 +1,11 @@
 import * as SecureStore from 'expo-secure-store';
 import { useCallback, useEffect, useReducer } from 'react';
 
-type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
+type UseStateHook<T> = [[T | null], (value: T | null) => void];
 
-function useAsyncState<T>(initialValue: [boolean, T | null] = [true, null]): UseStateHook<T> {
+function useAsyncState<T>(initialValue: [T | null] = [null]): UseStateHook<T> {
 	return useReducer(
-		(state: [boolean, T | null], action: T | null = null): [boolean, T | null] => [false, action],
+		(state: [T | null], action: T | null = null): [T | null] => [action],
 		initialValue,
 	) as UseStateHook<T>;
 }
