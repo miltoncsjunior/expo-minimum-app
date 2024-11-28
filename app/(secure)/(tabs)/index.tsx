@@ -10,7 +10,6 @@ import { PostType } from '@/models/interface';
 import { useEffect, useState } from 'react';
 
 export default function HomeScreen() {
-	const api = useApi;
 	const [posts, setPosts] = useState<PostType[]>([]);
 	const [isError, setIsError] = useState<boolean>(false);
 
@@ -19,7 +18,8 @@ export default function HomeScreen() {
 	}, []);
 
 	useEffect(() => {
-		api.getPosts()
+		useApi
+			.getPosts()
 			.then(data => {
 				setPosts(data);
 			})
@@ -27,7 +27,7 @@ export default function HomeScreen() {
 				setIsError(true);
 			});
 		return () => {};
-	}, [api]);
+	}, []);
 
 	return (
 		<ParallaxScrollView
