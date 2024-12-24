@@ -18,7 +18,7 @@ export function useSession() {
 	const value = useContext(AuthContext);
 	if (process.env.NODE_ENV !== 'production') {
 		if (!value) {
-			const msgError = 'useSession must be used within a <SessionProvider />';
+			const msgError = 'useSession não pode ser utilizado sem a <SessionProvider />';
 			useLog.error(msgError);
 			throw new Error(msgError);
 		}
@@ -43,7 +43,7 @@ export function SessionProvider(props: PropsWithChildren) {
 					//useLog.info('Device id: ' + DeviceInfo.getDeviceId() + ' ...');
 					useLog.info('Device manufacturer: ' + DeviceInfo.manufacturer + ' ...');
 					useLog.info('Device model: ' + DeviceInfo.modelName + ' ...');
-					useLog.info('Device type: ' + DeviceInfo.type + ' ...');
+					useLog.info('Device type: ' + DeviceInfo.deviceType + ' ...');
 					useLog.info('Device operating system: ' + DeviceInfo.osName + ' ...');
 					useLog.info('Device operating system version: ' + DeviceInfo.osVersion + ' ...');
 				},

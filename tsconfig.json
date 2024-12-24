@@ -1,10 +1,16 @@
 {
-	"extends": "expo/tsconfig.base",
-	"compilerOptions": {
-		"strict": true,
-		"paths": {
-			"@/*": ["./*"]
-		}
-	},
-	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "plugins/android-manifest.js"]
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "plugins/android-manifest.js"
+  ]
 }
