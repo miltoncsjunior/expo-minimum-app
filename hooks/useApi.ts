@@ -1,11 +1,8 @@
 import { PostType } from '@/models/interface';
 import axios, { AxiosResponse } from 'axios';
-import Constants from 'expo-constants';
-
-const API_URL = Constants.expoConfig?.extra?.api_url;
 
 const instance = axios.create({
-	baseURL: API_URL || 'https://jsonplaceholder.typicode.com/',
+	baseURL: process.env.EXPO_PUBLIC_API_URL || 'https://jsonplaceholder.typicode.com/',
 	timeout: 15000,
 });
 

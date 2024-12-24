@@ -1,16 +1,17 @@
+import { InteractionManager } from 'react-native';
 import { consoleTransport, fileAsyncTransport, logger } from 'react-native-logs';
 
 let today = new Date();
 let formattedDate = today.getFullYear() + ('0' + (today.getMonth() + 1)).slice(-2) + ('0' + today.getDate()).slice(-2);
 
-const InteractionManager = require('react-native').InteractionManager;
+const interactionManager = InteractionManager;
 const EXPOFS = require('expo-file-system');
 
 const log = logger.createLogger({
 	//transport: __DEV__ ? consoleTransport : fileAsyncTransport,
 	//severity: __DEV__ ? 'debug' : 'error',
 	async: true,
-	asyncFunc: InteractionManager.runAfterInteractions,
+	asyncFunc: interactionManager.runAfterInteractions,
 	transport: [fileAsyncTransport, consoleTransport],
 	levels: {
 		debug: 0,

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Expo Minimum App",
     "slug": "expo-minimum-app",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -15,7 +15,10 @@
     "ios": {
       "buildNumber": "1",
       "supportsTablet": true,
-      "bundleIdentifier": "expo.minimum.app"
+      "bundleIdentifier": "expo.minimum.app",
+      "config": {
+          "googleMapsApiKey": "XXXX"
+      }
     },
     "android": {
       "versionCode": 1,
@@ -23,7 +26,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "expo.minimum.app"
+      "package": "expo.minimum.app",
+      "config": {
+          "googleMaps": {
+              "apiKey": "XXXX"
+          }
+      }
     },
     "plugins": [
       [
@@ -57,12 +65,20 @@
         }
       ],
       [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Utilizamos sua locação para localizar os pontos próximos."
+        }
+      ],
+      [
         "expo-font"
       ],
       [
         "expo-router"
       ],
-      "expo-secure-store"
+      [
+        "expo-secure-store"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -70,8 +86,7 @@
     "extra": {
       "router": {
         "origin": false
-      },
-      "api_url": "${API_URL}"
+      }
     }
   }
 }

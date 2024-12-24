@@ -1,7 +1,7 @@
 import { useLog } from '@/hooks/useLog';
 import { useStorageState } from '@/hooks/useStorageState';
+import * as DeviceInfo from 'expo-device';
 import { createContext, PropsWithChildren, useContext } from 'react';
-import DeviceInfo from 'react-native-device-info';
 
 const AuthContext = createContext<{
 	signIn: () => void;
@@ -39,12 +39,13 @@ export function SessionProvider(props: PropsWithChildren) {
 					useLog.info('Sign in...');
 					setSession('John Doe');
 					useLog.info('Signed in as John Doe...');
-					useLog.info('Device id: ' + DeviceInfo.getDeviceId() + ' ...');
-					useLog.info('Device manufacturer: ' + DeviceInfo.getBrand() + ' ...');
-					useLog.info('Device model: ' + DeviceInfo.getModel() + ' ...');
-					useLog.info('Device type: ' + DeviceInfo.getDeviceType() + ' ...');
-					useLog.info('Device operating system: ' + DeviceInfo.getSystemName() + ' ...');
-					useLog.info('Device operating system version: ' + DeviceInfo.getSystemVersion() + ' ...');
+					//TODO: Get device IMEI
+					//useLog.info('Device id: ' + DeviceInfo.getDeviceId() + ' ...');
+					useLog.info('Device manufacturer: ' + DeviceInfo.manufacturer + ' ...');
+					useLog.info('Device model: ' + DeviceInfo.modelName + ' ...');
+					useLog.info('Device type: ' + DeviceInfo.type + ' ...');
+					useLog.info('Device operating system: ' + DeviceInfo.osName + ' ...');
+					useLog.info('Device operating system version: ' + DeviceInfo.osVersion + ' ...');
 				},
 				signOut: () => {
 					setSession(null);
