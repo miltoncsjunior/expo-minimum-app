@@ -55,7 +55,7 @@ export default function ExploreScreen() {
 			<Collapsible title="Light and dark mode components">
 				<Text>
 					This template has light and dark mode support. The <Text>useColorScheme()</Text> hook lets you
-					inspect what the user's current color scheme is, and so you can adjust UI colors accordingly.
+					inspect what the user ${`'`} s current color scheme is, and so you can adjust UI colors accordingly.
 				</Text>
 				<ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
 					<Text>Learn more</Text>

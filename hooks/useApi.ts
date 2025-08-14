@@ -1,4 +1,4 @@
-import { PostType } from '@/models/interface';
+import { PostType } from '@/data/models/interface';
 import axios, { AxiosResponse } from 'axios';
 
 const instance = axios.create({
@@ -10,8 +10,8 @@ const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
 	get: (url: string) => instance.get(url).then(responseBody),
-	post: (url: string, body: {}) => instance.post(url, body).then(responseBody),
-	put: (url: string, body: {}) => instance.put(url, body).then(responseBody),
+	post: (url: string, body: object) => instance.post(url, body).then(responseBody),
+	put: (url: string, body: object) => instance.put(url, body).then(responseBody),
 	delete: (url: string) => instance.delete(url).then(responseBody),
 };
 

@@ -4,9 +4,9 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Card, Text } from 'react-native-paper';
 
+import { PostType } from '@/data/models/interface';
 import { useApi } from '@/hooks/useApi';
 import { useLog } from '@/hooks/useLog';
-import { PostType } from '@/models/interface';
 import { useEffect, useState } from 'react';
 
 export default function HomeScreen() {

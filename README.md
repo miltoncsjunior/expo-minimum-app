@@ -47,5 +47,5 @@ To learn more about developing your project with Expo, look at the following res
 - [Theme React Native Paper](https://callstack.github.io/react-native-paper/): Learn how to use React Native Paper.
 - [Icons](https://ionic.io/ionicons): Learn how to use
 - [Camera](https://docs.expo.dev/versions/latest/sdk/camera/): Learn how to use the camera.
-- [Expo SQLite ORM](https://www.npmjs.com/package/expo-sqlite-orm): Learn how to use SQLite ORM.
+- [TypeORM](https://typeorm.io): Learn how to use TypeORM.
 - [Logging](https://www.npmjs.com/package/react-native-logs): Learn how to use the log system in file and console.

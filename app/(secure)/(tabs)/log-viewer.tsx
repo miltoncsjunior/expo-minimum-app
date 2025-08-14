@@ -29,8 +29,8 @@ export default function LogViewerScreen() {
 						);
 					}
 				})
-				.catch(error => {
-					useLog.error(error);
+				.catch(err => {
+					useLog.error(err);
 				});
 	}, [rootDirectory]);
 
@@ -40,8 +40,8 @@ export default function LogViewerScreen() {
 				.then(result => {
 					setLogs(result);
 				})
-				.catch(error => {
-					useLog.error(error);
+				.catch(err => {
+					useLog.error(err);
 				});
 		}
 	}, [file, rootDirectory]);
