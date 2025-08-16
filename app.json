@@ -2,13 +2,13 @@
   "expo": {
     "name": "Expo Minimum App",
     "slug": "expo-minimum-app",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,7 +20,7 @@
     "android": {
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "expo.minimum.app",
@@ -28,7 +28,7 @@
     },
     "plugins": [
       [
-        "./plugins/android-manifest-attributes",
+        "./src/plugins/android-manifest-attributes",
         {
           "application": {
             "android:hardwareAccelerated": "true",
@@ -67,7 +67,10 @@
         "expo-font"
       ],
       [
-        "expo-router"
+        "expo-router",
+        {
+          "root": "./src/routes"
+        }
       ],
       [
         "expo-secure-store"
