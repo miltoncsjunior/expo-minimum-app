@@ -7,30 +7,35 @@ import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
+import { Repository } from 'typeorm/browser';
 
 export default function LocalDatabaseScreen() {
 	const [users, setUsers] = useState<Users[]>([]);
-	const [repository, setRepository] = useState<any>(null);
+	const [repository, setRepository] = useState<Repository<User> | null>(null);
 
 	const connect = async () => {
-		if (appDataSource.isInitialized) {
+		if (!appDataSource.isInitialized) {
+			useLog.info('Initializing database...');
+			try {
+				await appDataSource.initialize();
+				useLog.info('Database initialized successfully.');
+			} catch (err: any) {
+				useLog.error('Failed to initialize database: ' + err.message);
+				return;
+			}
+		} else {
 			useLog.info('Database already initialized.');
-			return;
 		}
-		useLog.info('Initializing database...');
-		try {
-			await appDataSource.initialize();
-			useLog.info('Database initialized successfully.');
-			setRepository(appDataSource.getRepository(User));
-		} catch (err: any) {
-			useLog.error('Failed to initialize database: ' + err.message);
-		}
+
+		const repo = appDataSource.getRepository(User);
+		setRepository(repo);
 	};
 
 	const onPressRunMigrations = async () => {
 		useLog.info('Running migrations...');
 		try {
-			// await appDataSource.runMigrations();
+			await connect();
+			await appDataSource.synchronize();
 			useLog.info('Migrations completed successfully.');
 		} catch (err: any) {
 			useLog.error('Error running migrations: ' + err.message);
@@ -40,13 +45,16 @@ export default function LocalDatabaseScreen() {
 	const onPressReset = async () => {
 		useLog.info('Resetting database...');
 		try {
-			await appDataSource.synchronize();
 			await connect();
+			await appDataSource.synchronize();
+			const repo = repository ?? appDataSource.getRepository(User);
+			setRepository(repo);
+			await repo.clear();
 			useLog.info('Database reset successfully.');
+			setUsers([]);
 		} catch (err: any) {
 			useLog.error('Error resetting database: ' + err.message);
 		}
-		setUsers([]);
 	};
 
 	const onPressInsert = async () => {
@@ -54,7 +62,10 @@ export default function LocalDatabaseScreen() {
 			useLog.error('Repository not ready. Initializing DB...');
 			await connect();
 		}
-		if (!repository) return;
+
+		const repo = repository ?? appDataSource.getRepository(User);
+		setRepository(repo);
+		if (!repo) return;
 
 		useLog.info('Inserting user...');
 		const user = new User();
@@ -63,7 +74,7 @@ export default function LocalDatabaseScreen() {
 		user.age = 25;
 
 		try {
-			await repository.save(user);
+			await repo.save(user);
 			useLog.info('User saved successfully: ' + JSON.stringify(user));
 		} catch (err: any) {
 			useLog.error('Error inserting user: ' + err.message);
@@ -75,11 +86,14 @@ export default function LocalDatabaseScreen() {
 			useLog.error('Repository not ready. Initializing DB...');
 			await connect();
 		}
-		if (!repository) return;
+
+		const repo = repository ?? appDataSource.getRepository(User);
+		setRepository(repo);
+		if (!repo) return;
 
 		useLog.info('Querying users...');
 		try {
-			const usersDb = await repository.find();
+			const usersDb = await repo.find();
 			setUsers(usersDb);
 			useLog.info('foundUsers: ' + JSON.stringify(usersDb));
 		} catch (err: any) {
@@ -103,10 +117,7 @@ export default function LocalDatabaseScreen() {
 			<Divider />
 
 			<Button mode="contained" onPress={onPressRunMigrations}>
-				Run Migrations
-			</Button>
-			<Button mode="contained" onPress={onPressReset}>
-				Reset database
+				Run migrations
 			</Button>
 			<Button mode="contained" onPress={onPressInsert}>
 				Insert user
@@ -114,6 +125,12 @@ export default function LocalDatabaseScreen() {
 			<Button mode="contained" onPress={onPressQuery}>
 				List users
 			</Button>
+			<Button mode="contained" onPress={onPressReset}>
+				Reset database
+			</Button>
+
+			<Divider />
+
 			<Text>{JSON.stringify(users, null, 1)}</Text>
 		</ParallaxScrollView>
 	);

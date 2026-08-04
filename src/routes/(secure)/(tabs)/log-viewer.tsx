@@ -1,50 +1,51 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useLog } from '@/hooks/useLog';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as FileSystem from 'expo-file-system';
+import { Directory, File, Paths } from 'expo-file-system';
 import React, { useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Divider, Text } from 'react-native-paper';
 
+const logDirectory = new Directory(Paths.document, 'logs');
+
 export default function LogViewerScreen() {
 	const [files, setFiles] = useState<string[]>([]);
 	const [file, setFile] = useState<string | null>(null);
-	const [logs, setLogs] = useState<string | null>(null);
-
-	const rootDirectory = FileSystem.documentDirectory;
-
+	const [logs, setLogs] = useState<string>('');
 	const fileViewRef = useRef(null);
 
 	useEffect(() => {
-		rootDirectory &&
-			FileSystem.readDirectoryAsync(rootDirectory)
-				.then(result => {
-					if (result) {
-						setFiles(
-							result.filter((item: string) => {
-								if (item.startsWith('log_') && item.endsWith('.txt')) {
-									return item;
-								}
-							}),
-						);
-					}
-				})
-				.catch(err => {
-					useLog.error(err);
-				});
-	}, [rootDirectory]);
+		try {
+			if (!logDirectory.exists) {
+				logDirectory.create();
+			}
+
+			const contents = logDirectory.list();
+
+			const logFiles = contents
+				.filter(item => item instanceof File && item.name.startsWith('log_') && item.name.endsWith('.txt'))
+				.map(fileItem => fileItem.name);
+
+			setFiles(logFiles);
+		} catch (err) {
+			console.error('Erro ao ler/inicializar diretório:', err);
+		}
+	}, []);
 
 	useEffect(() => {
-		if (file) {
-			FileSystem.readAsStringAsync(rootDirectory + file, { encoding: FileSystem.EncodingType.UTF8 })
-				.then(result => {
-					setLogs(result);
-				})
-				.catch(err => {
-					useLog.error(err);
-				});
-		}
-	}, [file, rootDirectory]);
+		if (!file) return;
+
+		const targetFile = new File(logDirectory, file);
+
+		targetFile
+			.text()
+			.then(result => {
+				setLogs(result);
+			})
+			.catch(err => {
+				useLog.error(err);
+			});
+	}, [file]);
 
 	useEffect(() => {
 		useLog.info('Log viewer screen started...');

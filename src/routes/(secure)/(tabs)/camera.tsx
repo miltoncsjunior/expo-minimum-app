@@ -81,13 +81,15 @@ export default function CameraScreen() {
 
 	const renderCamera = () => {
 		return (
-			<CameraView
-				style={styles.camera}
-				ref={ref}
-				mode={mode}
-				facing={facing}
-				mute={false}
-				responsiveOrientationWhenOrientationLocked>
+			<View style={styles.cameraContainer}>
+				<CameraView
+					style={styles.camera}
+					ref={ref}
+					mode={mode}
+					facing={facing}
+					mute={false}
+					responsiveOrientationWhenOrientationLocked
+				/>
 				<View style={styles.shutterContainer}>
 					<Pressable onPress={toggleMode}>
 						{mode === 'picture' ? (
@@ -122,7 +124,7 @@ export default function CameraScreen() {
 						<FontAwesome6 name="rotate-left" size={32} color="white" />
 					</Pressable>
 				</View>
-			</CameraView>
+			</View>
 		);
 	};
 
@@ -140,14 +142,23 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	cameraContainer: {
+		flex: 1,
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'black',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 	camera: {
 		flex: 1,
 		width: '100%',
 	},
 	shutterContainer: {
 		position: 'absolute',
-		bottom: 44,
+		bottom: 20,
 		left: 0,
+		right: 0,
 		width: '100%',
 		alignItems: 'center',
 		flexDirection: 'row',

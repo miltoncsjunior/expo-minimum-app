@@ -1,16 +1,16 @@
-import * as EXPOFS from 'expo-file-system';
-import { InteractionManager } from 'react-native';
+import { Directory, File, Paths } from 'expo-file-system';
 import { consoleTransport, fileAsyncTransport, logger } from 'react-native-logs';
 
 let today = new Date();
 let formattedDate = today.getFullYear() + ('0' + (today.getMonth() + 1)).slice(-2) + ('0' + today.getDate()).slice(-2);
 
-const interactionManager = InteractionManager;
+const directory = new Directory(Paths.document, 'logs');
+
 const log = logger.createLogger({
 	//transport: __DEV__ ? consoleTransport : fileAsyncTransport,
 	//severity: __DEV__ ? 'debug' : 'error',
 	async: true,
-	asyncFunc: interactionManager.runAfterInteractions,
+	asyncFunc: (item: () => void) => requestIdleCallback(item),
 	transport: [fileAsyncTransport, consoleTransport],
 	levels: {
 		debug: 0,
@@ -19,7 +19,8 @@ const log = logger.createLogger({
 		error: 3,
 	},
 	transportOptions: {
-		FS: EXPOFS,
+		FS: { File, Paths },
+		filePath: directory.uri,
 		fileName: `log_${formattedDate}.txt`,
 		colors: {
 			debug: 'white',
