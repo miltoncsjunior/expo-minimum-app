@@ -23,8 +23,7 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "expo.minimum.app",
-      "edgeToEdgeEnabled": true
+      "package": "expo.minimum.app"
     },
     "plugins": [
       [
