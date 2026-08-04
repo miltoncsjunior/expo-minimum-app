@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withRepeat,
-    withSequence,
-    withTiming,
+	useAnimatedStyle,
+	useSharedValue,
+	withRepeat,
+	withSequence,
+	withTiming,
 } from 'react-native-reanimated';
 
 export function HelloWave() {

@@ -1,7 +1,7 @@
 import { PostType } from '@/data/models/interface';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse, create } from 'axios';
 
-const instance = axios.create({
+const instance = create({
 	baseURL: process.env.EXPO_PUBLIC_API_URL || 'https://jsonplaceholder.typicode.com/',
 	timeout: 15000,
 });

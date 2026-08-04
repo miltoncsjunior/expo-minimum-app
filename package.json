@@ -64,11 +64,16 @@
     "eslint-config-expo": "~55.0.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^17.9.0",
     "jest": "~29.7.0",
     "jest-expo": "~55.0.20",
     "prettier": "^3.6.2",
     "react-test-renderer": "19.2.0",
     "typescript": "~5.9.2"
   },
-  "private": true
+  "private": true,
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "unrs-resolver@1.12.2": true
+  }
 }
