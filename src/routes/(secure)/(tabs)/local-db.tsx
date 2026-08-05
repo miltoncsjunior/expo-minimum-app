@@ -1,41 +1,41 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { appDataSource } from '@/data/datasource';
-import { User } from '@/data/entities/user';
-import { Users } from '@/data/models/user';
+import { User, UserRepository } from '@/data/entities/user';
 import { useLog } from '@/hooks/useLog';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
-import { Repository } from 'typeorm/browser';
+
+// Helper functions for random data generation
+const generateRandomName = () => {
+	const firstNames = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace', 'Heidi'];
+	const lastNames = ['Smith', 'Jones', 'Williams', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore'];
+	const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+	const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+	return `${randomFirstName} ${randomLastName}`;
+};
+
+// Helper functions for random data generation
+const generateRandomAge = () => {
+	return Math.floor(Math.random() * (60 - 18 + 1)) + 18; // Age between 18 and 60
+};
+
+// Helper functions for random data generation
+const generateRandomEmail = (name: string) => {
+	const sanitizedName = name.toLowerCase().replace(/\s/g, '');
+	const domains = ['example.com', 'test.org', 'mail.net'];
+	const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+	return `${sanitizedName}${Math.floor(Math.random() * 100)}@${randomDomain}`;
+};
 
 export default function LocalDatabaseScreen() {
-	const [users, setUsers] = useState<Users[]>([]);
-	const [repository, setRepository] = useState<Repository<User> | null>(null);
-
-	const connect = async () => {
-		if (!appDataSource.isInitialized) {
-			useLog.info('Initializing database...');
-			try {
-				await appDataSource.initialize();
-				useLog.info('Database initialized successfully.');
-			} catch (err: any) {
-				useLog.error('Failed to initialize database: ' + err.message);
-				return;
-			}
-		} else {
-			useLog.info('Database already initialized.');
-		}
-
-		const repo = appDataSource.getRepository(User);
-		setRepository(repo);
-	};
+	const [users, setUsers] = useState<User[]>([]);
+	const [repository] = useState<UserRepository>(() => new UserRepository());
 
 	const onPressRunMigrations = async () => {
 		useLog.info('Running migrations...');
 		try {
-			await connect();
-			await appDataSource.synchronize();
+			await repository.createTable();
 			useLog.info('Migrations completed successfully.');
 		} catch (err: any) {
 			useLog.error('Error running migrations: ' + err.message);
@@ -45,11 +45,8 @@ export default function LocalDatabaseScreen() {
 	const onPressReset = async () => {
 		useLog.info('Resetting database...');
 		try {
-			await connect();
-			await appDataSource.synchronize();
-			const repo = repository ?? appDataSource.getRepository(User);
-			setRepository(repo);
-			await repo.clear();
+			await repository.dropTable();
+			await repository.createTable();
 			useLog.info('Database reset successfully.');
 			setUsers([]);
 		} catch (err: any) {
@@ -58,42 +55,25 @@ export default function LocalDatabaseScreen() {
 	};
 
 	const onPressInsert = async () => {
-		if (!repository) {
-			useLog.error('Repository not ready. Initializing DB...');
-			await connect();
-		}
-
-		const repo = repository ?? appDataSource.getRepository(User);
-		setRepository(repo);
-		if (!repo) return;
-
 		useLog.info('Inserting user...');
-		const user = new User();
-		user.firstName = 'Timber';
-		user.lastName = 'Saw';
-		user.age = 25;
-
 		try {
-			await repo.save(user);
-			useLog.info('User saved successfully: ' + JSON.stringify(user));
+			const newUser = await repository.create({
+				nome: generateRandomName(),
+				idade: generateRandomAge(),
+				email: generateRandomEmail(generateRandomName()),
+			});
+
+			useLog.info('User saved successfully: ' + JSON.stringify(newUser));
+			setUsers([...users, newUser]);
 		} catch (err: any) {
 			useLog.error('Error inserting user: ' + err.message);
 		}
 	};
 
 	const onPressQuery = async () => {
-		if (!repository) {
-			useLog.error('Repository not ready. Initializing DB...');
-			await connect();
-		}
-
-		const repo = repository ?? appDataSource.getRepository(User);
-		setRepository(repo);
-		if (!repo) return;
-
 		useLog.info('Querying users...');
 		try {
-			const usersDb = await repo.find();
+			const usersDb = await repository.readAll();
 			setUsers(usersDb);
 			useLog.info('foundUsers: ' + JSON.stringify(usersDb));
 		} catch (err: any) {
@@ -103,7 +83,6 @@ export default function LocalDatabaseScreen() {
 
 	useEffect(() => {
 		useLog.info('Local database screen started...');
-		connect();
 	}, []);
 
 	return (
@@ -111,7 +90,7 @@ export default function LocalDatabaseScreen() {
 			headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
 			headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
 			<View style={styles.titleContainer}>
-				<Text>Local Database using Expo SQLite and TypeORM</Text>
+				<Text>Local Database using Expo SQLite and Generics</Text>
 			</View>
 
 			<Divider />
@@ -131,7 +110,26 @@ export default function LocalDatabaseScreen() {
 
 			<Divider />
 
-			<Text>{JSON.stringify(users, null, 1)}</Text>
+			{users.length === 0 ? (
+				<Text>No users found.</Text>
+			) : (
+				<View style={styles.table}>
+					<View style={styles.tableRow}>
+						<Text style={styles.tableHeader}>ID</Text>
+						<Text style={styles.tableHeader}>Nome</Text>
+						<Text style={styles.tableHeader}>Idade</Text>
+						<Text style={styles.tableHeader}>Email</Text>
+					</View>
+					{users.map(user => (
+						<View key={user.id} style={styles.tableRow}>
+							<Text style={styles.tableCell}>{user.id}</Text>
+							<Text style={styles.tableCell}>{user.nome}</Text>
+							<Text style={styles.tableCell}>{user.idade}</Text>
+							<Text style={styles.tableCell}>{user.email}</Text>
+						</View>
+					))}
+				</View>
+			)}
 		</ParallaxScrollView>
 	);
 }
@@ -146,5 +144,27 @@ const styles = StyleSheet.create({
 	titleContainer: {
 		flexDirection: 'row',
 		gap: 8,
+	},
+	table: {
+		borderWidth: 1,
+		borderColor: '#ccc',
+		marginVertical: 10,
+	},
+	tableRow: {
+		flexDirection: 'row',
+		borderBottomWidth: 1,
+		borderColor: '#eee',
+	},
+	tableHeader: {
+		flex: 1,
+		padding: 4,
+		fontWeight: 'bold',
+		backgroundColor: '#ccc',
+		textAlign: 'left',
+	},
+	tableCell: {
+		flex: 1,
+		padding: 4,
+		textAlign: 'left',
 	},
 });

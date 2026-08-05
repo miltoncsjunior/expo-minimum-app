@@ -2,7 +2,7 @@
   "expo": {
     "name": "Expo Minimum App",
     "slug": "expo-minimum-app",
-    "version": "1.3.5",
+    "version": "1.4.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "scheme": "expo-minimum-app",

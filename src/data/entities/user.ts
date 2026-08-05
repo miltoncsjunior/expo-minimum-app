@@ -1,16 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm/browser';
+import { BaseEntity } from '@/data/generics/base-entity';
+import { BaseRepository, ColumnDefinition } from '@/data/generics/base-repository';
 
-@Entity()
-export class User {
-	@PrimaryGeneratedColumn()
-	id: number;
+export interface User extends BaseEntity {
+	nome: string;
+	idade: number;
+	email: string;
+}
 
-	@Column()
-	firstName: string;
+const databaseTable = 'users';
 
-	@Column()
-	lastName: string;
+const databaseColumns: ColumnDefinition[] = [
+	{ name: 'nome', type: 'TEXT', constraints: 'NOT NULL' },
+	{ name: 'idade', type: 'INTEGER', constraints: 'NOT NULL' },
+	{ name: 'email', type: 'TEXT', constraints: 'NOT NULL UNIQUE' },
+];
 
-	@Column()
-	age: number;
+export class UserRepository extends BaseRepository<User> {
+	constructor() {
+		super(databaseTable, databaseColumns);
+	}
 }

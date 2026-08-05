@@ -1,4 +1,4 @@
-import { PostType } from '@/data/models/interface';
+import { PostType } from '@/data/models/post-type';
 import { AxiosResponse, create } from 'axios';
 
 const instance = create({
