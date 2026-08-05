@@ -11,7 +11,7 @@ This project is a React Native Expo app using Expo Router, React Native Paper, a
 - `src/components/` — reusable UI components and auth providers.
 - `src/components/authentication/AuthContext.tsx` — the `SessionProvider` and `useSession()` hook.
 - `src/hooks/useLog.ts` — centralized logging utility used throughout the app.
-- `src/core/utils.tsx` — validation helpers used by forms.
+- `src/core/validators.tsx` — validation helpers used by forms.
 - `src/constants/Colors.ts` — theme colors for light/dark modes.
 - `src/plugins/android-manifest-attributes.js` — custom Expo plugin for Android manifest settings.
 

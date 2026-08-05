@@ -2,10 +2,10 @@ import { useSession } from '@/components/authentication/AuthContext';
 import FormLayout from '@/components/FormLayout';
 import { useLog } from '@/hooks/useLog';
 import { router } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, HelperText, Text, TextInput } from 'react-native-paper';
-import { emailValidator, passwordValidator } from '../core/utils';
+import { emailValidator, passwordValidator } from '../core/validators';
 
 export default function LoginScreen() {
 	const { signIn } = useSession();
