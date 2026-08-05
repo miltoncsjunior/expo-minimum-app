@@ -84,13 +84,16 @@
           "backgroundColor": "#ffffff",
           "image": "./src/assets/images/splash.png",
           "imageWidth": 200,
+          "resizeMode": "contain",
           "dark": {
             "image": "./src/assets/images/splash.png",
             "backgroundColor": "#ffffff"
           }
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-image",
+      "expo-web-browser"
     ]
   }
 }
